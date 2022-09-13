@@ -43,17 +43,17 @@ export default {
             },
             {
               date: '14.88.2002',
-              category: 'Food',
+              category: 'Sport',
               value: 1231
             },
             {
               date: '32.22.2800',
-              category: 'Food',
+              category: 'Transport',
               value: 2033
             },
             {
               date: '14.88.2002',
-              category: 'Food',
+              category: 'Education',
               value: 1231
             },
             {
