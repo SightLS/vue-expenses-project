@@ -10,18 +10,6 @@ export default {
       state.paymentsList = paymentsList
     },
     ADD_PAYMENT (state, payment) {
-      state.paymentsList.forEach((e) => {
-        // console.log(e, 'e')
-        e.forEach((i) => {
-          console.log(i === payment)
-          console.log(payment, 'пеймент')
-          console.log(i, 'i')
-          if (JSON.stringify(i) === JSON.stringify(payment)) {
-            console.log('error')
-          }
-        })
-      })
-      // if (check !== true) {
       if (state.paymentsList[state.paymentsList.length - 1].length < 5) {
         state.paymentsList[state.paymentsList.length - 1].push(payment)
       } else {

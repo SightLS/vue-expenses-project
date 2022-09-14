@@ -32,8 +32,7 @@ export default {
   data: () => ({
     value: '',
     category: '',
-    date: '',
-    data: {}
+    date: ''
   }),
   methods: {
     checkForm () {
@@ -45,8 +44,6 @@ export default {
       // })
       if (this.value && this.category) {
         this.addExpenses()
-      } else if (this.value && this.category) {
-        alert('одно и тоже')
       } else {
         this.formError()
       }
