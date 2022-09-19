@@ -12,9 +12,13 @@ const routes = [
       {
         path: '/main/add/payment/:category',
         name: 'addPayment',
-        component: () => import(/* webpackChunkName: "About" */'../../src/views/MainView.vue')
+        component: () => import(/* webpackChunkName: "mainPage " */'../../src/views/MainView.vue')
       }
     ]
+  },
+  {
+    path: '/',
+    redirect: { name: 'MainPage' }
   },
   {
     path: '/about',

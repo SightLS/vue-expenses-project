@@ -1,61 +1,37 @@
 <template>
   <div class="expenses">
+    <button @click="addPayment">Add new cost</button>
     <expensesList :paymentsList="paymentsList"/>
-    <div class="expenses-form">
-      <button @click="addFormBtn">{{ addForm }} форму</button>
-      <expensesForm
-        v-if="show"
-        @add-expenses="addExpenses"
-        :categoryList="categoryList"
-        :addExpensesLink="addExpensesLink"
-      />
-    </div>
   </div>
 </template>
 
 <script>
 import expensesList from '@/components/ExpensesList'
-import expensesForm from '@/components/expensesForm'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'App',
   components: {
-    expensesList,
-    expensesForm
+    expensesList
   },
   data: () => ({
-    show: false,
-    addForm: 'показать',
-    addExpensesLink: []
+    showModal: false
+    // addExpensesLink: []
   }),
   computed: {
-    ...mapGetters(['paymentsList', 'categoryList'])
+    ...mapGetters(['paymentsList'])
   },
   methods: {
     ...mapActions(['fetchData', 'fetchCategoryData']),
-    ...mapMutations(['ADD_PAYMENT']),
-    addExpenses (data) {
-      this.ADD_PAYMENT(data)
-    },
-    addFormBtn () {
-      this.show = !this.show
-      !this.show ? this.addForm = 'показать' : this.addForm = 'скрыть'
+    addPayment () {
+      this.$modal.show({
+        title: 'Add new payment'
+      })
     }
   },
   created () {
     this.fetchData()
     this.fetchCategoryData()
-  },
-  mounted () {
-    if (this.$route.name === 'addPayment') {
-      this.addForm = 'скрыть'
-      this.show = true
-      this.addExpensesLink.push(this.$route.params.category)
-      this.addExpensesLink.push(this.$route.query.value)
-    }
-
-    // this.addExpenses({})
   }
 }
 </script>
@@ -64,19 +40,27 @@ export default {
 .expenses-form {
   width: 250px;
 }
+
 .expenses {
   display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
 
 button {
   background-color: #32AB9B;
   border: 0;
-  width: 100px;
-  height: 40px;
+  width: 300px;
+  height: 30px;
   border-radius: 5px;
+  position: relative;
+  left: -130px;
+  color: white;
+  margin-bottom: 30px;
 }
-button:hover{
+
+button:hover {
   cursor: pointer;
 }
 

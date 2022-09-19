@@ -20,10 +20,10 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'expensesForm',
   props: {
-    addExpensesLink: {
-      type: Array,
-      require: true
-    },
+    // addExpensesLink: {
+    //   type: Array,
+    //   require: true
+    // },
     categoryList: {
       type: Array,
       default: () => []
@@ -36,12 +36,6 @@ export default {
   }),
   methods: {
     checkForm () {
-      // const check = this.paymentsList.some((e) => {
-      //   const check2 = e.some((i) => {
-      //     return JSON.stringify(i) === JSON.stringify(this.data)
-      //   })
-      //   return check2
-      // })
       if (this.value && this.category) {
         this.addExpenses()
       } else {
@@ -62,6 +56,8 @@ export default {
       }
       const check = this.paymentsList.some((e) => {
         const check2 = e.some((i) => {
+          console.log(i)
+          console.log(this.data)
           return JSON.stringify(i) === JSON.stringify(this.data)
         })
         return check2
@@ -113,23 +109,22 @@ export default {
   beforeUpdate () {
     this.kek()
     this.localDataPush()
-  },
-  created () {
-    if (this.addExpensesLink.length) {
-      this.category = this.addExpensesLink[0]
-      this.value = this.addExpensesLink[1]
-      this.date = this.currentDay
-    }
-    console.log(this.addExpensesLink, 'dasdas')
   }
+  // created () {
+  //   if (this.addExpensesLink.length) {
+  //     this.category = this.addExpensesLink[0]
+  //     this.value = this.addExpensesLink[1]
+  //     this.date = this.currentDay
+  //   }
+  //   console.log(this.addExpensesLink, 'dasdas')
+  // }
 }
 </script>
 
 <style scoped lang="scss">
 .form {
-  margin: 20px 0 0 0;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   gap: 20px;
@@ -140,7 +135,7 @@ input {
   width: 200px;
   height: 40px;
   border: 0px;
-  box-shadow: 4px 4px 50px 0px rgba(36, 132, 206, 0.2);
+  box-shadow: 4px 4px 50px 0px rgba(36, 132, 206, 0.4);
   border-radius: 10px;
   text-align: center;
   outline: none;
@@ -169,12 +164,14 @@ input:focus {
 }
 
 @keyframes slidein {
-  from {
-    width: 100%;
+  0% {
+    box-shadow: 4px 4px 50px 0px rgba(36, 132, 206, 0.4);
   }
-
-  to {
-    width: 240px;
+  50% {
+    box-shadow: 7px 7px 50px 0px rgba(36, 132, 206, 15);
+  }
+  100% {
+    box-shadow: 4px 4px 50px 0px rgba(36, 132, 206, 6);
   }
 }
 

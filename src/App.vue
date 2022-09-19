@@ -12,8 +12,39 @@
     <main class="conatiner">
       <router-view></router-view>
     </main>
+    <transition name="fade">
+      <ModalWindowAddPayment v-if="showModal" :settings="modalSetting"/>
+    </transition>
   </div>
 </template>
+
+<script>
+import ModalWindowAddPayment from '@/components/ModalWindowAddPayment'
+
+export default {
+  name: 'App',
+  components: {
+    ModalWindowAddPayment
+  },
+  data: () => ({
+    showModal: false,
+    modalSetting: {}
+  }),
+  methods: {
+    modalOpen (settings) {
+      this.modalSetting = settings
+      this.showModal = true
+    },
+    modalClose () {
+      this.showModal = false
+    }
+  },
+  mounted () {
+    this.$modal.EventBus.$on('show', this.modalOpen)
+    this.$modal.EventBus.$on('hide', this.modalClose)
+  }
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -64,5 +95,11 @@ blockquote,
 dl,
 dd {
   margin: 0;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
 </style>
