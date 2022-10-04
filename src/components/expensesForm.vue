@@ -20,6 +20,10 @@ import { mapGetters } from 'vuex'
 export default {
   name: 'expensesForm',
   props: {
+    addExpensesLink: {
+      type: Array,
+      require: true
+    },
     categoryList: {
       type: Array,
       default: () => []
@@ -28,8 +32,7 @@ export default {
   data: () => ({
     value: '',
     category: '',
-    date: '',
-    data: {}
+    date: ''
   }),
   methods: {
     checkForm () {
@@ -41,8 +44,6 @@ export default {
       // })
       if (this.value && this.category) {
         this.addExpenses()
-      } else if (this.value && this.category) {
-        alert('одно и тоже')
       } else {
         this.formError()
       }
@@ -112,6 +113,14 @@ export default {
   beforeUpdate () {
     this.kek()
     this.localDataPush()
+  },
+  created () {
+    if (this.addExpensesLink.length) {
+      this.category = this.addExpensesLink[0]
+      this.value = this.addExpensesLink[1]
+      this.date = this.currentDay
+    }
+    console.log(this.addExpensesLink, 'dasdas')
   }
 }
 </script>

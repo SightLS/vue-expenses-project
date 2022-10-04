@@ -1,55 +1,19 @@
 <template>
   <div id="app">
-    <header></header>
-    <main>
-      <expensesList :paymentsList="paymentsList"/>
-      <div class="expenses-form">
-        <button @click="addFormBtn">{{ addForm }} форму</button>
-        <expensesForm
-          v-if="show"
-          @add-expenses="addExpenses"
-          :categoryList="categoryList"
-        />
+    <header>
+      <div class="header conatiner">
+        <nav>
+          <router-link to="/main">main</router-link>
+          <router-link to="/about">about</router-link>
+          <router-link to="/404">404</router-link>
+        </nav>
       </div>
+    </header>
+    <main class="conatiner">
+      <router-view></router-view>
     </main>
   </div>
 </template>
-
-<script>
-import expensesList from '@/components/ExpensesList'
-import expensesForm from '@/components/expensesForm'
-import { mapActions, mapGetters, mapMutations } from 'vuex'
-
-export default {
-  name: 'App',
-  components: {
-    expensesList,
-    expensesForm
-  },
-  data: () => ({
-    show: false,
-    addForm: 'показать'
-  }),
-  computed: {
-    ...mapGetters(['paymentsList', 'categoryList'])
-  },
-  methods: {
-    ...mapActions(['fetchData', 'fetchCategoryData']),
-    ...mapMutations(['ADD_PAYMENT']),
-    addExpenses (data) {
-      this.ADD_PAYMENT(data)
-    },
-    addFormBtn () {
-      this.show = !this.show
-      !this.show ? this.addForm = 'показать' : this.addForm = 'скрыть'
-    }
-  },
-  created () {
-    this.fetchData()
-    this.fetchCategoryData()
-  }
-}
-</script>
 
 <style lang="scss">
 #app {
@@ -58,26 +22,47 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 
-main {
+header {
+  height: 60px;
+  background-color: #32AB9B;
   display: flex;
   justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+
+  nav {
+    display: flex;
+    justify-content: space-around;
+    gap: 40px;
+  }
 }
 
-button {
-  background-color: #32AB9B;
-  border: 0;
-  width: 100px;
-  height: 40px;
-  border-radius: 5px;
-}
-button:hover{
-  cursor: pointer;
+a {
+  color: #2c3e50;
+  text-decoration: none;
 }
 
-.expenses-form {
-  width: 250px;
+.conatiner {
+  width: 1000px;
+  margin: 0 auto;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
 }
 </style>
